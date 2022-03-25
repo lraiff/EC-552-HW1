@@ -227,12 +227,12 @@
 		}
           ],
         "design": [
-            "NOR(A1_AmtR,pLuxStar,pTet)",
-            "NOR(B2_BM3R1,pTet,A1_AmtR)",
-            "NOR(E1_BetI,pLuxStar,A1_AmtR)",
-            "NOR(S1_SrpR,B2_BM3R1,E1_BetI)",
-            "NOT(B1_BM3R1,pTac)",
-            "NOR(y,B1_BM3R1,S1_SrpR)"
+         "NOR(O1,pLuxStar,pTet)",
+            "NOR(O2,pTet,O1)",
+            "NOR(O3,pLuxStar,O1)",
+            "NOR(O4,O2,O3)",
+            "NOT(O5,pTac)",
+            "NOR(y,O5,O4)"
         ]
 	                
     }]
