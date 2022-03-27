@@ -20,15 +20,9 @@ fclose(fid1);
 
 libInput = jsondecode(fid_str1);
 
-% fprintf('Select output json file\n')
-% filenameOutput = uigetfile('*.json');
-% fid2 = fopen(filenameOutput); %open file
-% raw2 = fread(fid2,inf); %read the contents of the file
-% fid_str2 = char(raw2');
-% fclose(fid2);
-%
-% libOutput = jsondecode(fid_str2);
-
+resultsFileName = "results.txt";
+inputID = fopen(resultsFileName, "a+");
+fprintf(inputID, "You performed the following operations: \n\n");
 
 
 %% get promoters from input file
@@ -178,6 +172,13 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
 
     Results(k).Score(1,:)= outputVal; % Input the Truth table into results
     [Results(k).Score(2,:),Results(k).gate_name, Results(k).operations]= gateOperations(Results(k).x, responseParameters); %Scoring 
+    
+    fprintf(inputID, "\n  Gate: %s \n",Results(k).gate_name );
+    for i = 1:length(Results(k).operations)
+        if ~(isempty(Results(k).operations{1,i}))
+          fprintf(inputID, "    %s\n", Results(k).operations{1,i});
+        end
+    end
 end
 
 %% Display
@@ -188,4 +189,21 @@ for j = 1: length(Results)
     Displayscores(:,j)=(Results(j).Score(2,:))'; 
 end 
 
+indOn = find(Results(end).Score(1,:) == 1);
+indOff = find(Results(end).Score(1,:) == 0);
+
+minOn = min(Results(end).Score(2,indOn));
+maxOff = max(Results(end).Score(2,indOff));
+
+score = log10(minOn/maxOff);
+
+fprintf(inputID, "\nThe total score of the circuit is: %f", score);
+
+copyfile(resultsFileName, erase(filenameInput, ".json") + ".txt")
+
+fclose(inputID);
+
+delete(resultsFileName);
+
+open(erase(filenameInput, ".json") + ".txt")
 

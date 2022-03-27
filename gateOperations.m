@@ -9,11 +9,11 @@ n = responseParameters(gateName).n;
 low = responseParameters(gateName).low;
 high = responseParameters(gateName).high;
 check=true;
-operationsongate= cell(1,6); 
+operationsongate= cell(1,7); 
 while check==true
     questionprompt=input("Do you want to do an operation?(Yes/No) ","s");
     if  questionprompt== "Yes"
-        operationNum = input("How many operations do you want to perform? (Max = 6): ");
+        operationNum = input("How many operations do you want to perform? (Max = 7): ");
         for i = 1:operationNum
             operationType = menu("Choose an operation", "Stretch", "Increase Slope", "Decrease Slope", "Stronger Promoter", "Weaker Promoter", "Stronger RBS", "Weaker RBS");
 
