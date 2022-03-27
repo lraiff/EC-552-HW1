@@ -233,7 +233,7 @@
             "NOR(O4,O2,O3)",
             "NOR(O5,O4, O3)",
             "NOT(O6,pTet)",
-            "NOR(y,O5,O6)"
+            "NOR(YFP,O5,O6)"
         ]
 	                
     }]

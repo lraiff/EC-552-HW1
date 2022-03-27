@@ -214,15 +214,15 @@
           ],
           "inputs": [
 		{
-              "name": "pLuxStar",
+            "name": "pLuxStar",
 		  "table": [ 0,1,1,1,0,1,0,0]
 		},
 		{
-              "name": "pTet",
+            "name": "pTet",
 		  "table": [ 0,1,1,0,1,0,1,0]
 		},
 		{
-              "name": "pTac",
+            "name": "pTac",
 		  "table": [ 0,1,0,1,1,0,0,1]
 		}
           ],
@@ -232,7 +232,7 @@
             "NOR(O3,pLuxStar,O1)",
             "NOR(O4,O2,O3)",
             "NOT(O5,pTac)",
-            "NOR(y,O5,O4)"
+            "NOR(YFP,O5,O4)"
         ]
 	                
     }]

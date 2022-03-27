@@ -239,7 +239,7 @@
             "NOT(O6,pBad)",
             "NOR(O7,O4,O6)",
             "AND(O8,pTac,O5)",
-            "NOR(y,O7,O8)"
+            "NOR(YFP,O7,O8)"
         ]
 	                
     }]
