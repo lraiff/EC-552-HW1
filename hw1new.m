@@ -113,6 +113,7 @@ for i = 1:length(circuitParameters)
             Results(i).Gate_type={};
             Results(i).x={};
             Results(i).gate_name={};
+            Results(i).operations={};
         end
     end
 end
@@ -176,7 +177,7 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
     end
 
     Results(k).Score(1,:)= outputVal; % Input the Truth table into results
-    [Results(k).Score(2,:),Results(k).gate_name]= gateOperations(Results(k).x, responseParameters); %Scoring 
+    [Results(k).Score(2,:),Results(k).gate_name, Results(k).operations]= gateOperations(Results(k).x, responseParameters); %Scoring 
 end
 
 %% Display
@@ -186,6 +187,5 @@ for j = 1: length(Results)
     Displaytruthtable(:,j)=(Results(j).Score(1,:))'; 
     Displayscores(:,j)=(Results(j).Score(2,:))'; 
 end 
-
 
 
