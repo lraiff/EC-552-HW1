@@ -8,16 +8,15 @@ fid = fopen(filenameUCF); %open file
 raw = fread(fid,inf); %read the contents of the file
 fid_str = char(raw');
 fclose(fid);
-
 libUCF = jsondecode(fid_str);
 
+newDesign = input("Are you using the same input? (Yes/No) ", "s");
 fprintf('Select input json file\n')
 filenameInput = uigetfile('*.json');
 fid1 = fopen(filenameInput); %open file
 raw1 = fread(fid1,inf); %read the contents of the file
 fid_str1 = char(raw1');
 fclose(fid1);
-
 libInput = jsondecode(fid_str1);
 
 resultsFileName = "results.txt";
@@ -173,6 +172,7 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
     Results(k).Score(1,:)= outputVal; % Input the Truth table into results
     [Results(k).Score(2,:),Results(k).gate_name, Results(k).operations]= gateOperations(Results(k).x, responseParameters); %Scoring 
     
+    %write operations done on each gate to the output text file
     fprintf(inputID, "\n  Gate: %s \n",Results(k).gate_name );
     for i = 1:length(Results(k).operations)
         if ~(isempty(Results(k).operations{1,i}))
@@ -182,6 +182,8 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
 end
 
 %% Display
+
+%output truth table and scores to variables
 Displaytruthtable= zeros(length(Results(1).Score(1,:)), length(Results)); 
 Displayscores= zeros(length(Results(1).Score(1,:)), length(Results));
 for j = 1: length(Results)
@@ -189,6 +191,7 @@ for j = 1: length(Results)
     Displayscores(:,j)=(Results(j).Score(2,:))'; 
 end 
 
+%final scoring of the gate
 indOn = find(Results(end).Score(1,:) == 1);
 indOff = find(Results(end).Score(1,:) == 0);
 
@@ -197,13 +200,13 @@ maxOff = max(Results(end).Score(2,indOff));
 
 score = log10(minOn/maxOff);
 
+%write final score of the circuit to a text file
 fprintf(inputID, "\nThe total score of the circuit is: %f", score);
-
 copyfile(resultsFileName, erase(filenameInput, ".json") + ".txt")
-
 fclose(inputID);
-
 delete(resultsFileName);
-
 open(erase(filenameInput, ".json") + ".txt")
+
+%plot scores
+plotScore(score, newDesign);
 
