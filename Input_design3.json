@@ -218,7 +218,7 @@
 		  "table": [ 0,1,1,1,1,0,0,0,0,0,0,0,1,1]
 		},
 		{
-              "name": "pBad",
+              "name": "pBAD",
 		  "table": [ 0,0,1,1,1,0,0,1,1,0,0,1,0,1]
 		},
         {
@@ -232,11 +232,11 @@
           ],
         "design": [
          	"NOR(O1,pLuxStar,pTac)",
-            "AND(O2,pBad,pTet)",
+            "AND(O2,pBAD,pTet)",
             "AND(O3,O1,O2)",
             "NOT(O4,O2)",
             "NOR(O5,O3,O4)",
-            "NOT(O6,pBad)",
+            "NOT(O6,pBAD)",
             "NOR(O7,O4,O6)",
             "AND(O8,pTac,O5)",
             "NOR(YFP,O7,O8)"
