@@ -1,5 +1,5 @@
 %Homework 1
-clear
+clear all; 
 
 %% load files
 fprintf('Select UCF json file\n')
@@ -119,11 +119,11 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
     Results(k).Gate_type= Gate_Type(1);
     InOut = split(Gate_Type(2), ','); %Seperate the inputs and the outputs
     Results(k).name= InOut(1);
-    if contains(circuitParameters(1).design(k-i), "NOR")==1 || contains(circuitParameters(1).design(i), "AND")==1
+    if contains(Gate_Type(1), "NOR")==1 || contains(Gate_Type(1), "AND")==1
         InOut(3)= erase(InOut(3),')');
         Results(k).input_names1= InOut(2);
         Results(k).input_names2= InOut(3);
-    elseif contains(circuitParameters(1).design(k-i), "NOT")==1
+    elseif contains(Gate_Type(1), "NOT")==1
         InOut(2)= erase(InOut(2),')');
         Results(k).input_names1= InOut(2);
         Results(k).input_names2= {};
@@ -134,7 +134,7 @@ inputVal1 = zeros(1,length(circuitParameters(1).inputs_table));
 inputVal2 = zeros(1,length(circuitParameters(1).inputs_table));
 outputVal = zeros(1,length(circuitParameters(1).inputs_table));
 
-%Scoring and Truth Table
+%% Scoring and Truth Table
 for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
      % Find the index of the Result fields that contains the input parameters of the gate 
     for j = 1: length(Results)
@@ -144,7 +144,7 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
         end
         if contains(Results(j).name, Results(k).input_names2)
             input2index=j;
-            if input2index ~= 0 % When it is a NOT gate
+            if input2index ~= 0 % When it is an AND gate
                 inputVal2= Results(input2index).Score(1,:);
             end
         end
@@ -208,5 +208,5 @@ delete(resultsFileName);
 open(erase(filenameInput, ".json") + ".txt")
 
 %plot scores
-plotScore(score, newDesign);
+%plotScore(score, newDesign);
 
