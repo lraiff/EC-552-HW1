@@ -119,11 +119,11 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
     Results(k).Gate_type= Gate_Type(1);
     InOut = split(Gate_Type(2), ','); %Seperate the inputs and the outputs
     Results(k).name= InOut(1);
-    if contains(circuitParameters(1).design(k-i), "NOR")==1 || contains(circuitParameters(1).design(i), 'AND')==1
+    if contains(circuitParameters(1).design(k-i), "NOR")==1 || contains(circuitParameters(1).design(i), "AND")==1
         InOut(3)= erase(InOut(3),')');
         Results(k).input_names1= InOut(2);
         Results(k).input_names2= InOut(3);
-    elseif contains(circuitParameters(1).design(k-i), 'NOT')==1
+    elseif contains(circuitParameters(1).design(k-i), "NOT")==1
         InOut(2)= erase(InOut(2),')');
         Results(k).input_names1= InOut(2);
         Results(k).input_names2= {};
