@@ -1,5 +1,6 @@
-function [y, gate_name, operationsongate]= gateOperations(x, responseParameters) % Operations on gate
-gateName = menu("Choose a gate", responseParameters(1,:).gate_name);
+function [y, gate_name, operationsongate]= gateOperations(x, responseParameters, gate_num) % Operations on gate
+prompt1= sprintf("Choose a gate type for Gate %d", gate_num);
+gateName = menu(prompt1, responseParameters(1,:).gate_name);
 
 gate_name = responseParameters(gateName).gate_name;
 ymax = responseParameters(gateName).ymax;
@@ -8,10 +9,12 @@ K = responseParameters(gateName).K;
 n = responseParameters(gateName).n;
 low = responseParameters(gateName).low;
 high = responseParameters(gateName).high;
+
 check=true;
 operationsongate= cell(1,7); 
 while check==true
-    questionprompt=input("Do you want to do an operation?(Yes/No) ","s");
+    prompt2= sprintf("Do you want to do an operation on Gate %d?(Yes/No) ", gate_num);
+    questionprompt=input(prompt2,"s");
     if  questionprompt== "Yes"
         operationNum = input("How many operations do you want to perform? (Max = 7): ");
         for i = 1:operationNum

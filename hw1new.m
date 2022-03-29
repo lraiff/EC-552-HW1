@@ -133,8 +133,9 @@ end
 inputVal1 = zeros(1,length(circuitParameters(1).inputs_table));
 inputVal2 = zeros(1,length(circuitParameters(1).inputs_table));
 outputVal = zeros(1,length(circuitParameters(1).inputs_table));
-
+gate_num= 0;
 %% Scoring and Truth Table
+gate_num= 0;
 for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
      % Find the index of the Result fields that contains the input parameters of the gate 
     for j = 1: length(Results)
@@ -168,9 +169,9 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
         outputVal(:)= ~inputVal1; % Opposite of input values 
         Results(k).x= Results(input1index).Score(2,:);
     end
-
+    gate_num= gate_num +1; 
     Results(k).Score(1,:)= outputVal; % Input the Truth table into results
-    [Results(k).Score(2,:),Results(k).gate_name, Results(k).operations]= gateOperations(Results(k).x, responseParameters); %Scoring 
+    [Results(k).Score(2,:),Results(k).gate_name, Results(k).operations]= gateOperations(Results(k).x, responseParameters,gate_num); %Scoring 
     
     %write operations done on each gate to the output text file
     fprintf(inputID, "\n  Gate: %s \n",Results(k).gate_name );
