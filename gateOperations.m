@@ -68,7 +68,7 @@ while check==true
     elseif questionprompt == "No"
         check=false;
     elseif questionprompt~= "No" && questionprompt~= "Yes"
-        fprintf("Error!Please input Yes or No!");
+        fprintf("Error!Please input Yes or No!\n");
         check=true;
     end
 end
