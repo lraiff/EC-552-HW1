@@ -1,5 +1,5 @@
 %Homework 1
-clear
+clear all; 
 
 %% load files
 fprintf('Select UCF json file\n')
@@ -119,11 +119,15 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
     Results(k).Gate_type= Gate_Type(1);
     InOut = split(Gate_Type(2), ','); %Seperate the inputs and the outputs
     Results(k).name= InOut(1);
+<<<<<<< HEAD
     if contains(circuitParameters(1).design(k-i), "NOR") || contains(circuitParameters(1).design(i), 'AND')
+=======
+    if contains(Gate_Type(1), "NOR")==1 || contains(Gate_Type(1), "AND")==1
+>>>>>>> 61fda66918139ad583a59420c712b24a42d08b57
         InOut(3)= erase(InOut(3),')');
         Results(k).input_names1= InOut(2);
         Results(k).input_names2= InOut(3);
-    elseif contains(circuitParameters(1).design(k-i), 'NOT')==1
+    elseif contains(Gate_Type(1), "NOT")==1
         InOut(2)= erase(InOut(2),')');
         Results(k).input_names1= InOut(2);
         Results(k).input_names2= {};
@@ -133,8 +137,9 @@ end
 inputVal1 = zeros(1,length(circuitParameters(1).inputs_table));
 inputVal2 = zeros(1,length(circuitParameters(1).inputs_table));
 outputVal = zeros(1,length(circuitParameters(1).inputs_table));
-
-%Scoring and Truth Table
+gate_num= 0;
+%% Scoring and Truth Table
+gate_num= 0;
 for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
      % Find the index of the Result fields that contains the input parameters of the gate 
     for j = 1: length(Results)
@@ -144,7 +149,7 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
         end
         if contains(Results(j).name, Results(k).input_names2)
             input2index=j;
-            if input2index ~= 0 % When it is a NOT gate
+            if input2index ~= 0 % When it is an AND gate
                 inputVal2= Results(input2index).Score(1,:);
             end
         end
@@ -168,9 +173,9 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
         outputVal(:)= ~inputVal1; % Opposite of input values 
         Results(k).x= Results(input1index).Score(2,:);
     end
-
+    gate_num= gate_num +1; 
     Results(k).Score(1,:)= outputVal; % Input the Truth table into results
-    [Results(k).Score(2,:),Results(k).gate_name, Results(k).operations]= gateOperations(Results(k).x, responseParameters); %Scoring 
+    [Results(k).Score(2,:),Results(k).gate_name, Results(k).operations]= gateOperations(Results(k).x, responseParameters,gate_num); %Scoring 
     
     %write operations done on each gate to the output text file
     fprintf(inputID, "\n  Gate: %s \n",Results(k).gate_name );
@@ -200,6 +205,7 @@ maxOff = max(Results(end).Score(2,indOff));
 
 score = log10(minOn/maxOff);
 
+<<<<<<< HEAD
 
 %write final score of the circuit to a text file
 outputFile = erase(filenameInput, ".json") + ".txt";
@@ -220,4 +226,15 @@ open(outputFile)
 
 %plot scores
 plotScore(score, newDesign);
+=======
+%write final score of the circuit to a text file
+fprintf(inputID, "\nThe total score of the circuit is: %f", score);
+copyfile(resultsFileName, erase(filenameInput, ".json") + ".txt")
+fclose(inputID);
+delete(resultsFileName);
+open(erase(filenameInput, ".json") + ".txt")
+>>>>>>> 61fda66918139ad583a59420c712b24a42d08b57
+
+%plot scores
+%plotScore(score, newDesign);
 

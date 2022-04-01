@@ -1,0 +1,20 @@
+You performed the following operations: 
+
+
+  Gate: A1_AmtR 
+    Stretch
+
+  Gate: B1_BM3R1 
+    Decrease Slope
+
+  Gate: B3_BM3R1 
+
+  Gate: B3_BM3R1 
+
+  Gate: E1_BetI 
+    Stronger RBS
+
+  Gate: F1_AmeR 
+    Weaker RBS
+
+The total score of the circuit is: -0.000000
