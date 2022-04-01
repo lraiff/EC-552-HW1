@@ -20,7 +20,7 @@ fclose(fid1);
 libInput = jsondecode(fid_str1);
 
 resultsFileName = "results.txt";
-inputID = fopen(resultsFileName, "a+");
+inputID = fopen(resultsFileName,"w");
 fprintf(inputID, "You performed the following operations: \n\n");
 
 
@@ -119,7 +119,7 @@ for k = i+1:i+length(circuitParameters(1).design) %loops every line of design
     Results(k).Gate_type= Gate_Type(1);
     InOut = split(Gate_Type(2), ','); %Seperate the inputs and the outputs
     Results(k).name= InOut(1);
-    if contains(circuitParameters(1).design(k-i), "NOR")==1 || contains(circuitParameters(1).design(i), 'AND')==1
+    if contains(circuitParameters(1).design(k-i), "NOR") || contains(circuitParameters(1).design(i), 'AND')
         InOut(3)= erase(InOut(3),')');
         Results(k).input_names1= InOut(2);
         Results(k).input_names2= InOut(3);
@@ -200,12 +200,23 @@ maxOff = max(Results(end).Score(2,indOff));
 
 score = log10(minOn/maxOff);
 
+
 %write final score of the circuit to a text file
-fprintf(inputID, "\nThe total score of the circuit is: %f", score);
-copyfile(resultsFileName, erase(filenameInput, ".json") + ".txt")
+outputFile = erase(filenameInput, ".json") + ".txt";
+
+if isfile(outputFile) 
+    fprintf(inputID, "\nThe total score of the circuit is: %f", score);
+    outputFile = erase(filenameInput, ".json") + "New.txt";
+    copyfile(resultsFileName, outputFile);
+else
+    fprintf(inputID, "\nThe total score of the circuit is: %f", score);
+    copyfile(resultsFileName, outputFile);
+end
 fclose(inputID);
+resultsID = fopen(resultsFileName);
+fclose(resultsID);
 delete(resultsFileName);
-open(erase(filenameInput, ".json") + ".txt")
+open(outputFile)
 
 %plot scores
 plotScore(score, newDesign);

@@ -231,7 +231,7 @@
             "AND(O2,pBad,O1)",
             "AND(O3,pTet,O1)",
             "NOR(O4,O2,O3)",
-            "NOR(O5,O4, O3)",
+            "NOR(O5,O4,O3)",
             "NOT(O6,pTet)",
             "NOR(y,O5,O6)"
         ]
